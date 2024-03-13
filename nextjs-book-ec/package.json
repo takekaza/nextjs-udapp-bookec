@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "cd nextjs-book-ec && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
