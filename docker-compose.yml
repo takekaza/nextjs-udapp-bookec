@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  nextjs-ud-app:
+    container_name: nextjs-ud-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app:cached
+      # - /app/nextjs-book-ec/node_modules
+      # - front_node_modules:/app/nextjs-book-ec/node_modules
+    environment:
+      - WATCHPACK_POLLING=true
+    tty: true
+    ports:
+      - "3000:3000"
+      - "5555:5555"
+    # command: npm run dev
+# volumes:
+# front_node_modules:
