@@ -7,21 +7,31 @@ export const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY!,
 });
 
+/*
+  どういうFetchがベターか
+  SSRで
+*/
 export const getAllBooks = async () => {
   const allBooks = await client.getList<BookType>({
     endpoint: "ebook",
+    customRequestInit: {
+      cache: "no-store", // SSR?: キャッシュをせず常に新しいデータ
+    },
   });
   return allBooks;
 };
 
 /*
-  ここはSSRらしい（サーバーサイドレンダリング）
-  fetchが呼ばれているとか
+  ここはSSRらしい（サーバーサイドレンダリング）=> fetchが呼ばれているとか
+  => デフォではなさそうなので、no-storeを入れる
 */
 export const getDetailBook = async (contentId: string) => {
   const detailBook = await client.getListDetail<BookType>({
     endpoint: "ebook",
     contentId,
+    customRequestInit: {
+      cache: "no-store", // SSR?: キャッシュをせず常に新しいデータ
+    },
   });
 
   return detailBook;
