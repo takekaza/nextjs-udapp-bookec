@@ -15,7 +15,12 @@ export const getAllBooks = async () => {
   const allBooks = await client.getList<BookType>({
     endpoint: "ebook",
     customRequestInit: {
-      cache: "no-store", // SSR?: キャッシュをせず常に新しいデータ
+      // SSR?: キャッシュをせず常に新しいデータ
+      // cache: "no-store",
+      // ISR
+      next: {
+        revalidate: 3600, // 1h
+      },
     },
   });
   return allBooks;
